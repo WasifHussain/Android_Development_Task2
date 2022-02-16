@@ -11,18 +11,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.task3.R;
 import com.example.task3.controller.StudentActivity;
+import com.example.task3.model.Students;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHolder> {
     Context c;
-    String myNames, myAddress,myFaculty;
-    int mySemester;
-    public CustomAdapter(StudentActivity s , String name, String address,String faculty, int semester){
-        c = s;
-        myNames = name;
-        myFaculty = faculty;
-        myAddress = address;
-        mySemester = semester;
+    private List<Students> list = new ArrayList<>();
+    public CustomAdapter(StudentActivity s , List<Students> l){
+        c =s;
+        list = l;
     }
 
     @NonNull
@@ -35,15 +35,15 @@ public class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.MyViewHold
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        holder.tv1.setText(myNames);
-        holder.tv2.setText(myAddress);
-        holder.tv3.setText(myFaculty);
-        holder.tv4.setText(String.valueOf(mySemester));
+        holder.tv1.setText("Name: "+list.get(position).getNames());
+        holder.tv2.setText("Address:"+list.get(position).getAddress());
+        holder.tv3.setText("Faculty:"+list.get(position).getFaculty());
+        holder.tv4.setText("Semester:"+list.get(position).getSemester());
     }
 
     @Override
     public int getItemCount() {
-        return 5;
+        return list.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{

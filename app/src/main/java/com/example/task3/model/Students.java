@@ -1,15 +1,14 @@
 package com.example.task3.model;
 
 public class Students {
-    String name, address, faculty;
-    int semester;
+    String names, address, faculty, semester;
 
-    public String getName() {
-        return name;
+    public String getNames() {
+        return names;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setNames(String names) {
+        this.names = names;
     }
 
     public String getAddress() {
@@ -28,11 +27,11 @@ public class Students {
         this.faculty = faculty;
     }
 
-    public int getSemester() {
+    public String getSemester() {
         return semester;
     }
 
-    public void setSemester(int semester) {
+    public void setSemester(String semester) {
         this.semester = semester;
     }
 }

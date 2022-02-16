@@ -17,48 +17,49 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class StudentActivity extends AppCompatActivity {
     private RecyclerView rv;
+    String names, address, faculty, semester ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_student);
         readStudentData();
         rv = findViewById(R.id.rv);
-        
         rv.setLayoutManager(new LinearLayoutManager(this));
-        rv.setAdapter(new CustomAdapter(StudentActivity.this,names,address,faculty,semester));
+        rv.setAdapter(new CustomAdapter(StudentActivity.this,list));
     }
-    private List<Students> students = new ArrayList<>();
-
-    Students dm1 = new Students();
-    String names = dm1.getName();
-    String address = dm1.getAddress();
-    String faculty = dm1.getFaculty();
-    int semester = dm1.getSemester();
+    private List<Students> list = new ArrayList<>();
     private void readStudentData(){
         InputStream is = getResources().openRawResource(R.raw.data);
         BufferedReader reader = new BufferedReader(
                 new InputStreamReader(is, Charset.forName("UTF-8"))
         );
-        String csvLine=" ";
+        String csvLine = " ";
         try{
-            while ((csvLine = reader.readLine()) != null) {
-                String[] tokens = csvLine.split(",");
-                Students dm = new Students();
-                dm.setName(tokens[0]);
-                dm.setAddress(tokens[1]);
-                dm.setFaculty(tokens[2]);
-                dm.setSemester(Integer.parseInt(tokens[4]));
-                students.add(dm);
-            }
-        }catch (IOException e){
-            Log.wtf("MyActivity","Error reading data file on line"+csvLine,e);
-            e.printStackTrace();
 
+            while ((csvLine = reader.readLine()) != null) {
+            Log.e("read line",csvLine.toString());
+               String[] values = csvLine.split(",");
+                Students students = new Students();
+                students.setNames(values[0]);
+                students.setAddress(values[1]);
+                students.setFaculty(values[2]);
+                students.setSemester(values[3]);
+//                    names = values[0];
+//                    address = values[1];
+//                    faculty = values[2];
+//                    semester = values[3];
+                String str = Arrays.toString(values);
+               list.add(students);
+
+            }
+        }catch (Exception e){
+            Log.e("error reading file",e.toString());
         }
     }
 }
